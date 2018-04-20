@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="常见的调用方式："
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/btn_normalUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="简单的Url拦截的方式进行交互"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/btn_protocolUlr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="约定协议的Url拦截的方式进行交互"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/btn_interface"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="接口调用的方式进行交互"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/btn_jsBridge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="JS bridge的方式进行交互"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>

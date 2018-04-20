@@ -1,0 +1,83 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body style="display:flex; flex-direction:column;justify-content:center; align-items:center">
+
+    <p id="content">hello</p>
+
+    <button style="height:3rem;width:10rem;" onclick='showNativeToast()'>普通的URL拦截</button>
+
+    <button style="height:3rem;width:10rem;margin-top:20px" onclick='showProtocolToast()'>约定协议的URL拦截</button>
+
+    <button style="height:3rem;width:10rem;margin-top:20px" onclick='callNativeMethod()'>调用原生接口</button>
+
+    <button style="height:3rem;width:10rem;margin-top:20px" onclick='callBridgeNativeMethod()'>走JS bridge</button>
+
+<script>
+    Window.onload= function(){
+        if (window.WebViewJavascriptBridge) {
+            WebViewJavascriptBridge.registerHandler("functionInJs", function (data, responseCallback) {
+                document.getElementById("content").innerHTML = ("data from Java: = " + data);
+                var responseData = "Javascript Says Right back aka!";
+                responseCallback(responseData);
+            });
+        } else {
+            document.addEventListener(
+                'WebViewJavascriptBridgeReady',
+                function () {
+                    WebViewJavascriptBridge.registerHandler("functionInJs", function (data, responseCallback) {
+                        document.getElementById("content").innerHTML = ("data from Java: = " + data);
+                        var responseData = "Javascript Says Right back aka!";
+                        responseCallback(responseData);
+                    });
+                },
+                false
+            );
+        }
+    }
+
+
+    function showNativeToast(){
+        var url = window.location.href;
+        window.location.href = url + "?showToast"
+    }
+
+    function showProtocolToast(){
+        var protocolUrl = "demo://zhongan.test.com?action=showToast"
+        window.location.href = protocolUrl;
+    }
+
+    function callNativeMethod(){
+        var json = "this is a toast from web method call";
+        //javaInterface是上面所说的字符串映射对象
+        window.javaInterface.showToast(json);
+    }
+·
+    function nativeCallJs(){
+        document.getElementById('content').innerHTML = "this is a message from native method call"
+    }
+
+    function callBridgeNativeMethod(){
+       WebViewJavascriptBridge.callHandler(
+        'submitFromWeb'
+        , {'param': 'aaa'}
+        , function(responseData) {
+            document.getElementById("content").innerHTML = "send get responseData from java, data = " + responseData
+        }
+        );
+    }
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
